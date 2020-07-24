@@ -6,17 +6,21 @@ using System.Collections.Generic;
 namespace UnitTests
 {
     [TestClass]
-    public class OpaqueIdProducerTests
+    public class OpaqueIdGeneratorTests
     {
         [TestMethod]
         public void GetGetOpaqueId_NoDuplicate_Test()
         {
-            OpaqueIdProducer producer = new OpaqueIdProducer();
+            OpaqueIdGenerator producer = new OpaqueIdGenerator();
             Dictionary<string, string> dict = new Dictionary<string, string>();
 
             for (int i = 0; i < 1000; i++)
             {
-                var opaqueId = producer.GetOpaqueId();
+                string opaqueId = producer.GetOpaqueId();
+                (DateTimeOffset Timestamp, string OpaqueId) opaqueIdWithTimestamp = producer.GetOpaqueIdWithTimestamp();
+                var a = opaqueIdWithTimestamp.Timestamp;
+
+                Console.Out.WriteLine(a.ToString("yyyyMMdd-HH:mm:ss.ff"));
 
                 Assert.IsTrue(dict.TryAdd(opaqueId, opaqueId), $"Duplicate trace id {opaqueId}");
             }
@@ -38,7 +42,7 @@ namespace UnitTests
         [TestMethod]
         public void SampleOctalBaseTarget()
         {
-            OpaqueIdProducer producer = new OpaqueIdProducer(CharacterSet.Octal);
+            OpaqueIdGenerator producer = new OpaqueIdGenerator(CharacterSet.Octal);
             for (int i = 0; i < 5; i++)
             {
                 Console.Out.WriteLine(producer.GetOpaqueId());
@@ -56,7 +60,7 @@ namespace UnitTests
         [TestMethod]
         public void SampleHexadecimalBaseTarget()
         {
-            OpaqueIdProducer producer = new OpaqueIdProducer(CharacterSet.Hexadecimal);
+            OpaqueIdGenerator producer = new OpaqueIdGenerator(CharacterSet.Hexadecimal);
             for (int i = 0; i < 5; i++)
             {
                 Console.Out.WriteLine(producer.GetOpaqueId());
@@ -74,7 +78,7 @@ namespace UnitTests
         [TestMethod]
         public void SampleFiveBase36()
         {
-            OpaqueIdProducer producer = new OpaqueIdProducer(CharacterSet.Base36);
+            OpaqueIdGenerator producer = new OpaqueIdGenerator(CharacterSet.Base36);
             for (int i = 0; i < 5; i++)
             {
                 Console.Out.WriteLine(producer.GetOpaqueId());
@@ -92,7 +96,7 @@ namespace UnitTests
         [TestMethod]
         public void SampleFiveBase64()
         {
-            OpaqueIdProducer producer = new OpaqueIdProducer(CharacterSet.Base64);
+            OpaqueIdGenerator producer = new OpaqueIdGenerator(CharacterSet.Base64);
             for (int i = 0; i < 5; i++)
             {
                 Console.Out.WriteLine(producer.GetOpaqueId());

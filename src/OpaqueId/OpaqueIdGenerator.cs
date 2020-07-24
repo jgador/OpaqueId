@@ -4,26 +4,26 @@ using System.Threading;
 namespace OpaqueId
 {
     /// <summary>
-    /// Thread-safe opaque id producer class.
+    /// Thread-safe opaque id generator class.
     /// </summary>
-    public class OpaqueIdProducer
+    public class OpaqueIdGenerator
     {
         private static readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1); // consumer can only be processed one at a time
         private readonly OpaqueEncoding _opaqueEncoding;
 
         /// <summary>
-        /// Initializes new <see cref="OpaqueIdProducer"/>.
+        /// Initializes new <see cref="OpaqueIdGenerator"/>.
         /// </summary>
         /// <param name="baseCharacters">The base characters. You may refer to <see cref="CharacterSet"/> or you may pass in your own set of base characters for encoding.</param>.
-        public OpaqueIdProducer(string baseCharacters)
+        public OpaqueIdGenerator(string baseCharacters)
         {
             _opaqueEncoding = new OpaqueEncoding(baseCharacters);
         }
 
         /// <summary>
-        /// Initializes new <see cref="OpaqueIdProducer"/> with 36 base characters.
+        /// Initializes new <see cref="OpaqueIdGenerator"/> with base 36 characters.
         /// </summary>
-        public OpaqueIdProducer() : this(CharacterSet.Base36)
+        public OpaqueIdGenerator() : this(CharacterSet.Base36)
         {
         }
 
@@ -51,7 +51,7 @@ namespace OpaqueId
         }
 
         /// <summary>
-        /// Returns an opaque id and the original timestamp encoded.
+        /// Returns an opaque id and the timestamp encoded.
         /// </summary>
         public (DateTimeOffset Timestamp, string OpaqueId) GetOpaqueIdWithTimestamp()
         {
