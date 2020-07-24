@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp2.0;net47;net5.0</TargetFrameworks>
+    <Authors>Jesse Gador</Authors>
+    <Company>Ayum</Company>
+    <Description>Thread-safe generation of opaque id that can be used for trace id or reference code.</Description>
+    <Copyright />
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/jgador/OpaqueId</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/jgador/OpaqueId</RepositoryUrl>
+    <PackageTags>OpaqueId, Generator</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+    <DocumentationFile>C:\repos\OpaqueId\src\OpaqueId\OpaqueId.xml</DocumentationFile>
+  </PropertyGroup>
+
+</Project>
